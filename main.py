@@ -5,7 +5,9 @@ from crawler.crawler import Crawler
 from graph.graph import GrafoWeb
 from graph.visualization import visualizar_grafo
 from pagerank.pagerank import PageRank
+from pagerank.results import visualizar_pagerank
 from scc.scc import SCC
+from scc.visualization import visualizar_scc
 
 
 logging.basicConfig(filename='data/crawler.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -25,9 +27,12 @@ if __name__ == "__main__":
         pagerank.calcular()
         pagerank.guardar_resultados('data/pagerank_results.csv')
         logging.info("Resultados de PageRank guardados con éxito.")
+        visualizar_pagerank(pagerank.results)
         scc = SCC(grafo_web)
+        scc_list = scc.calcular_scc()
         scc.guardar_resultados('data/scc_results.csv')
         logging.info("Resultados de SCC guardados con éxito.")
+        visualizar_scc(grafo_web, scc_list)
     except KeyboardInterrupt:
         logging.warning("Se terminó la ejecución del programa antes de finalizar.")
     except Exception as e:

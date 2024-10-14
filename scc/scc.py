@@ -17,4 +17,4 @@ class SCC:
             writer.writerow(['SCC ID', 'URLs'])
             for i, scc in enumerate(scc_list):
                 # Cada componente fuertemente conexa (SCC) se representa como una lista de URLs
-                writer.writerow([i, list(scc)])  # i es el ID del SCC, list(scc) son las URLs
+                writer.writerow([i, ", ".join(scc)])  # i es el ID del SCC, list(scc) son las URLs
