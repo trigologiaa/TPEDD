@@ -1,0 +1,6 @@
+matplotlib
+networkx
+requests
+beautifulsoup4
+scipy
+PyQt5
