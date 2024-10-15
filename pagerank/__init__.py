@@ -1,2 +1,2 @@
 from .pagerank import *
-from .visualization import *
+from .visualization_pagerank import *

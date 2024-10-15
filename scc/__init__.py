@@ -1,2 +1,2 @@
 from .scc import *
-from .visualization import *
+from .visualization_scc import *
