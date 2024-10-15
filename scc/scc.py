@@ -1,20 +1,41 @@
-import csv
+from persistence import *
 import networkx as nx
 
 
 class SCC:
+    """
+    Clase para calcular y almacenar las componentes fuertemente conexas (SCC) de un grafo dirigido.
+
+    Attributes:
+        grafo (GrafoWeb): Una instancia de la clase GrafoWeb que representa el grafo a analizar.
+    """
 
     def __init__(self, grafo):
+        """
+        Inicializa la clase SCC con un grafo dado.
+
+        Args:
+            grafo (GrafoWeb): Una instancia de la clase GrafoWeb que se utilizará para el cálculo de SCC.
+        """
         self.grafo = grafo
 
     def calcular_scc(self):
+        """
+        Calcula las componentes fuertemente conexas del grafo.
+
+        Returns:
+            list: Una lista de conjuntos, donde cada conjunto contiene las URLs que forman una componente fuertemente conexa.
+        """
         return list(nx.strongly_connected_components(self.grafo.graph))
 
     def guardar_resultados(self, file_name):
-        scc_list = self.calcular_scc()
-        with open(file_name, 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(['SCC ID', 'URLs'])
-            for i, scc in enumerate(scc_list):
-                # Cada componente fuertemente conexa (SCC) se representa como una lista de URLs
-                writer.writerow([i, ", ".join(scc)])  # i es el ID del SCC, list(scc) son las URLs
+        """
+        Guarda los resultados de las componentes fuertemente conexas en un archivo CSV.
+        """
+        try:
+            scc_list = self.calcular_scc()
+            data = [(i, ", ".join(scc)) for i, scc in enumerate(scc_list)]
+            headers = ['SCC ID', 'URLs']
+            guardar_csv(file_name, data, headers)
+        except Exception as e:
+            logging.error(f"Error al guardar los resultados de SCC: {e}")
